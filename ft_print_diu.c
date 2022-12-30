@@ -6,7 +6,7 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 18:28:24 by jeongyle          #+#    #+#             */
-/*   Updated: 2022/12/29 22:06:54 by jeongyle         ###   ########.fr       */
+/*   Updated: 2022/12/30 14:42:40 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,8 @@ int	ft_printdecarr(char *arr, int size, int sign)
 		i++;
 	while (i + j < size)
 	{
-		write(1, &arr[i + j], 1);
+		if (write(1, &arr[i + j], 1) < 0)
+			return (-1);
 		j++;
 	}
 	return (j + sign);
@@ -64,7 +65,7 @@ int	ft_printdec(va_list ap)
 	}
 	arr = (char *)malloc(10);
 	if (!arr)
-		return (0);
+		return (-1);
 	ft_decint(arg, 9, arr);
 	len = ft_printdecarr(arr, 10, sign);
 	free(arr);
@@ -81,7 +82,7 @@ int	ft_printunint(va_list ap)
 	arg = va_arg(ap, unsigned int);
 	arr = (char *)malloc(10);
 	if (!arr)
-		return (0);
+		return (-1);
 	ft_decint(arg, 9, arr);
 	len = ft_printdecarr(arr, 10, 0);
 	free(arr);

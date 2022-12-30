@@ -6,7 +6,7 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:27:49 by jeongyle          #+#    #+#             */
-/*   Updated: 2022/12/29 22:48:28 by jeongyle         ###   ########.fr       */
+/*   Updated: 2022/12/30 14:23:25 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,8 +18,7 @@ int	ft_printchar(va_list ap)
 	unsigned char	arg;
 
 	arg = va_arg(ap, int);
-	write(1, &arg, 1);
-	len = 1;
+	len = write(1, &arg, 1);
 	return (len);
 }
 
@@ -32,8 +31,8 @@ int	ft_printstr(va_list ap)
 	arg = (char *)va_arg(ap, const char *);
 	if (!arg)
 	{
-		write(1, "(null)", 6);
-		return (6);
+		len = write(1, "(null)", 6);
+		return (len);
 	}
 	while (arg[len] != '\0')
 	{

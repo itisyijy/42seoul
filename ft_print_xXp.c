@@ -6,7 +6,7 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:11:07 by jeongyle          #+#    #+#             */
-/*   Updated: 2022/12/29 22:06:46 by jeongyle         ###   ########.fr       */
+/*   Updated: 2022/12/30 14:44:53 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,8 @@ int	ft_printhexarr(char *arr, int size)
 	j = 0;
 	while (i + j < size)
 	{
-		write(1, &arr[i + j], 1);
+		if (write(1, &arr[i + j], 1) < 0)
+			return (-1);
 		j++;
 	}
 	return (j);
@@ -73,7 +74,7 @@ int	ft_printhexint(va_list ap, char x)
 	len = 0;
 	arr = (char *)malloc(8);
 	if (!arr)
-		return (0);
+		return (-1);
 	ft_hexint(arg, 7, arr, x);
 	len = ft_printhexarr(arr, 8);
 	free(arr);
@@ -90,9 +91,11 @@ int	ft_printaddress(va_list ap)
 	write(1, "0x", 2);
 	arr = (char *)malloc(16);
 	if (!arr)
-		return (0);
+		return (-1);
 	ft_hexlong(arg, 15, arr);
-	len = ft_printhexarr(arr, 16) + 2;
+	len = ft_printhexarr(arr, 16);
 	free(arr);
-	return (len);
+	if (len < 0)
+		return (len);
+	return (len + 2);
 }

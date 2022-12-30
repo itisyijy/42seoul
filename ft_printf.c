@@ -6,7 +6,7 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:12:11 by jeongyle          #+#    #+#             */
-/*   Updated: 2022/12/29 22:06:36 by jeongyle         ###   ########.fr       */
+/*   Updated: 2022/12/30 14:48:44 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,21 +38,23 @@ int	ft_format(const char *format, va_list ap)
 int	ft_printf(const char *format, ...)
 {
 	int		len;
+	int		tmp;
 	va_list	ap;
 
 	len = 0;
+	tmp = 0;
 	va_start(ap, format);
-	while (*format)
+	while (*format && len >= tmp)
 	{
+		tmp = len;
 		if (*format == '%')
 			len += ft_format(format++, ap);
 		else
-		{
-			write(1, format, 1);
-			len++;
-		}
+			len += write(1, format, 1);
 		format++;
 	}
 	va_end(ap);
+	if (len < tmp)
+		return (-1);
 	return (len);
 }
