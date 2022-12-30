@@ -6,11 +6,11 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 18:28:24 by jeongyle          #+#    #+#             */
-/*   Updated: 2022/12/30 14:42:40 by jeongyle         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:06:34 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_printdecarr(char *arr, int size, int sign)
 {
@@ -20,7 +20,10 @@ int	ft_printdecarr(char *arr, int size, int sign)
 	i = 0;
 	j = 0;
 	if (sign)
-		write(1, "-", 1);
+	{
+		if (write(1, "-", 1) < 0)
+			return (-1);
+	}
 	while (arr[i] == '0' && i < size - 1)
 		i++;
 	while (i + j < size)

@@ -6,11 +6,11 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 16:27:49 by jeongyle          #+#    #+#             */
-/*   Updated: 2022/12/30 14:23:25 by jeongyle         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:04:28 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_printchar(va_list ap)
 {
@@ -25,6 +25,7 @@ int	ft_printchar(va_list ap)
 int	ft_printstr(va_list ap)
 {
 	int		len;
+	int		tmp;
 	char	*arg;
 
 	len = 0;
@@ -36,8 +37,10 @@ int	ft_printstr(va_list ap)
 	}
 	while (arg[len] != '\0')
 	{
-		write(1, &arg[len], 1);
-		len++;
+		tmp = write(1, &arg[len], 1);
+		if (tmp < 0)
+			return (tmp);
+		len += tmp;
 	}
 	return (len);
 }

@@ -6,11 +6,11 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/28 13:12:11 by jeongyle          #+#    #+#             */
-/*   Updated: 2022/12/30 14:48:44 by jeongyle         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:03:43 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_format(const char *format, va_list ap)
 {
@@ -21,7 +21,7 @@ int	ft_format(const char *format, va_list ap)
 	if (*format == 'c')
 		len = ft_printchar(ap);
 	else if (*format == '%')
-		write(1, "%", ++len);
+		len = write(1, "%", 1);
 	else if (*format == 's')
 		len = ft_printstr(ap);
 	else if (*format == 'p')
@@ -44,17 +44,19 @@ int	ft_printf(const char *format, ...)
 	len = 0;
 	tmp = 0;
 	va_start(ap, format);
-	while (*format && len >= tmp)
+	while (*format)
 	{
-		tmp = len;
 		if (*format == '%')
-			len += ft_format(format++, ap);
+			tmp = ft_format(format++, ap);
 		else
-			len += write(1, format, 1);
+			tmp = write(1, format, 1);
+		if (tmp < 0)
+			return (tmp);
+		len += tmp;
 		format++;
 	}
 	va_end(ap);
 	if (len < tmp)
-		return (-1);
+		return (tmp);
 	return (len);
 }

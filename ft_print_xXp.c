@@ -6,11 +6,11 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/29 17:11:07 by jeongyle          #+#    #+#             */
-/*   Updated: 2022/12/30 14:44:53 by jeongyle         ###   ########.fr       */
+/*   Updated: 2022/12/30 17:07:21 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libftprintf.h"
+#include "ft_printf.h"
 
 int	ft_printhexarr(char *arr, int size)
 {
@@ -88,7 +88,8 @@ int	ft_printaddress(va_list ap)
 	size_t	arg;
 
 	arg = (size_t)va_arg(ap, void *);
-	write(1, "0x", 2);
+	if (write(1, "0x", 2) < 0)
+		return (-1);
 	arr = (char *)malloc(16);
 	if (!arr)
 		return (-1);
