@@ -6,7 +6,7 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 13:54:59 by jeongyle          #+#    #+#             */
-/*   Updated: 2023/01/03 14:26:50 by jeongyle         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:08:52 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_list {
 	struct s_list	*next;
 }	t_list;
 
+void	ft_free(t_list *node, int self, int str);
 t_list	*ft_lstnew(int fd);
 t_list	*ft_findlst(t_list **lst, int fd);
 void	ft_delnode(t_list **lst, t_list *node);

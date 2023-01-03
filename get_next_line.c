@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/30 13:55:03 by jeongyle          #+#    #+#             */
-/*   Updated: 2023/01/03 16:30:31 by jeongyle         ###   ########.fr       */
+/*   Updated: 2023/01/03 18:06:19 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,29 +51,45 @@ t_list	*ft_findlst(t_list **lst, int fd)
 	return (find);
 }
 
+void	ft_free(t_list *node, int self, int str)
+{
+	if (node)
+	{
+		if (str && node->str)
+		{
+			free(node->str);
+			node->str = NULL;
+		}
+		if (self)
+		{
+			free(node);
+			node = NULL;
+		}
+	}
+}
+
 void	ft_delnode(t_list **lst, t_list *node)
 {
 	t_list	*prev;
-	t_list	*item;
+	t_list	*find;
+	t_list	*ini;
 
+	ini = *lst;
 	prev = *lst;
-	while (prev)
-	{
-		if (prev->fd == node->fd)
-			break ;
+	while (prev->next != node && prev != node)
 		prev = prev->next;
-	}
-	item = prev->next;
-	if (prev == *lst)
+	if (prev == node)
 	{
 		*lst = prev->next;
-		free(prev);
+		ft_free(prev, 1, 1);
 	}
-	else if (item->next == NULL)
-		prev->next = NULL;
 	else
-		prev->next = item->next;
-	free(item);
+	{
+		find = prev->next;
+		prev->next = find->next;
+		ft_free(find, 1, 1);
+		(*lst) = ini;
+	}
 }
 
 char	*get_next_line(int fd)
@@ -96,7 +112,6 @@ char	*get_next_line(int fd)
 	}
 	if (node->str && byte >= 0)
 		return (ft_newline(node));
-	free(node->str);
 	ft_delnode(&lst, node);
 	return (NULL);
 }
