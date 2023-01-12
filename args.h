@@ -6,7 +6,7 @@
 /*   By: jeongyle <jeongyle@student.42seoul.kr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/08 20:54:58 by jeongyle          #+#    #+#             */
-/*   Updated: 2023/01/11 14:32:45 by jeongyle         ###   ########.fr       */
+/*   Updated: 2023/01/11 21:42:37 by jeongyle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,6 @@ int		check_digit(char *str);
 int		ps_strncmp(const char *s1, const char *s2, unsigned long n);
 int		check_overlap(int argc, char *argv[]);
 long	ps_atoi(char *str);
-int		check_range(long integer);
+int		check_args(int argc, char *argv[]);
 
 #endif
